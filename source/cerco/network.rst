@@ -19,7 +19,7 @@ while the GeoNetwork on the hub will hold all the spatial data.
 
 
 Harvesting flows
-----------------
+================
 
 One configuration difference between a partner node and the central hub is that the hub CKAN will not harvest its local
 GeoNetwork instance, but will harvest all the partner CKAN instances instead.
@@ -47,4 +47,27 @@ There are some drawbacks to this configuration:
 - GeoNetwork instances on partner nodes are harvested twice: by the local CKAN instance and by the hub GeoNetwork;
 - while it is possible to add datasets at hub-level in CKAN, it will be not be possibile to add new metadata records in 
   the hub GeoNetwork, since they won't be mirrored (harvested) into the hub CKAN.
+  
+  
+Augmented info
+==============
+
+In the various harvesting flows we are adding a bit of information in the datasets:
+
+
+CKAN-GN harvesting
+------------------
+
+- Added tags:
+   - "Geografico": used to filter spatial datasets
+
+- Added extras:
+   - ``source-gn-node``: URL of source GeoNetwork; used to create a link to the original metadata.
+
+
+CKAN-CKAN harvesting
+--------------------
+
+- Added extras:
+   - ``cerco-origin``: label for data source: es. "Provincia di Prato".
     

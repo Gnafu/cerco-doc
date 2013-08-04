@@ -5,7 +5,7 @@ Create a dataset
 ################
 
 We'll explain here how to create new datasets in CKAN. Such dataset will be non-geographic; if you need info about the creation of
-geographic dataset please refer to the provided GeoNetwork documentation and to the :ref:`gnckanindex` documentation.
+geographic dataset please refer to the provided GeoNetwork documentation and to the :ref:`gnckaninteract` documentation.
 
 
 In order to create a new dataset, you need to log into CKAN. The administrator should have provided 
