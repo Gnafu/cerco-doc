@@ -7,5 +7,6 @@ Mapping data
     :maxdepth: 2
 
     iso19139.rst
+    licenses.rst
     wms.rst
     tolomeo.rst
