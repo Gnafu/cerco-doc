@@ -21,11 +21,9 @@ to define the position in the XML file of each required information
 The field defined in CKAN are anyway very few compared to what can be expresses in ISO19139.
 So what is done is:
 
-#. handle the fields that can be mapped directly in CKAN dataset model (title, description, author, ...)
+#. handle the fields that can be mapped directly in CKAN dataset model (title, description, author, ...);
 #. store some important fields that have to counterparts in CKAN dataset model as custom fields 
-   (see :ref:`addingdatasetextrafields`). Here a sample subset of some extra fields:
-   
-     .. figure:: ../../../images/ckan_extras_example.png
+   (see :ref:`addingdatasetextrafields`);
 #. do not import other very specific fields.
 
 Here a sample of how a metadata in GeoNetwork is transferred into CKAN:
@@ -36,9 +34,12 @@ Dataset "ippovia" in GeoNetwork:
    :width: 680
    :target: http://84.33.2.27/geonetwork/srv/ita/metadata.show?id=6
 
-Dataset "ippovia" in CKAN:
+Main fieldd in dataset "ippovia" in CKAN:
    
 .. figure:: ../../../images/ckan_sample_ippovia.png
    :width: 680
    :target: http://84.33.2.27/dataset/tracciato-ippovia-provincia-di-prato1
 
+Some of the mapped extra fields:
+
+.. figure:: ../../../images/ckan_extras_example.png
