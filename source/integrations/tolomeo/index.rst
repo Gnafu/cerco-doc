@@ -3,16 +3,6 @@
 CKAN-Tolomeo integration
 ########################
 
-
-Recognized Resources type
--------------------------
-**TODO** 
-
-Resource types in GN:
- - WMS getMap layer
- - Tolomeo preset
- 
-
 Resource preview
 ----------------
 

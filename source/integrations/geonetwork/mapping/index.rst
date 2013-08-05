@@ -8,5 +8,4 @@ Mapping data
 
     iso19139.rst
     licenses.rst
-    wms.rst
-    tolomeo.rst
+    resources.rst
