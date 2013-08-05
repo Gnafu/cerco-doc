@@ -860,6 +860,23 @@ Pagine statiche
 
 Per l'aggiunta di pagine statiche seguire l'esempio di license e about nel controller ``pyenv/src/ckan/ckan/controllers/home.py``.
 
+Es.: aggiungiamo una pagina statica mappata su ``/progetto``.
+
+#. Creiamo la pagina statica ``home/progetto.html``.
+#. Andiamo ad editare la pagina ``ckan/templates/home/index.html`` e aggiungiamo::
+
+     <a href="${h.url_for('/progetto')}"  title="progetto cerco" ><img src="/img/progetto_cerco.jpg" /></a>
+
+   La pagina andrà a fornire un link a ``/progetto``, indirizzo da configurare.    
+#. Nel controller ``ckan/controllers/home.py`` andiamo ad aggiungere::
+
+    def progetto(self):
+        return render('home/progetto.html')
+        
+#. Andiamo quindi a configurare il link ``/progetto``, dicendo al sistema quale controller e metodo andare a chiamare
+   Editare il file ``ckan/config/routing.py`` ed aggiungere la riga::
+   
+      map.connect('progetto', '/progetto', controller='home', action='progetto')
 
 ========
 Versioni
