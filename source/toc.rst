@@ -9,5 +9,6 @@ Detailed table of contents
     cerco/index.rst
     ckan/index.rst
     integrations/index.rst
-    installation/index.rst 
+    install/index.rst 
+    install/os/install_oracle_java.rst
     

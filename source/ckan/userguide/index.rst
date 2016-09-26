@@ -8,4 +8,3 @@ User guide
 
     basic.rst    
     adding.rst
-    ../../installation/cerco_ckan_harvesting.rst

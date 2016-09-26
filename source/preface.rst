@@ -6,12 +6,11 @@ Preface
 About this doc
 --------------
 
-This document provides information about the CERCO project software architecture. 
+This document provides information about the OpenDataNetwork (formerly CERCO) project software architecture. 
 
 It will explain how the various application within the project will integrate, and how data is flowing between applications.  
 
-This documentation *does not* contain installation, deploy and configuration details, since these topics are covered by 
-another set of documents.   
+This documentation also contains installation, deploy and configuration details.   
 
 
 License Information
@@ -20,12 +19,12 @@ License Information
 Software
 ````````
 
-All the software used in the CERCO project is release under open source licences.    
+All the software used in the ODN project is release under open source licences.    
 Namely:
 
- - `GeoNetwork opensource <http://geonetwork-opensource.org>`_ v2.8: :term:`GPL` v2 
+ - `GeoNetwork opensource <http://geonetwork-opensource.org>`_ v2.10: :term:`GPL` v2  (`license <https://github.com/geonetwork/core-geonetwork/blob/2.10.x/pom.xml#L81>`_)
  
- - `CKAN <http://ckan.org/>`_ v1.8: :term:`AGPL` v3.0
+ - `CKAN <http://ckan.org/>`_ v2.5.2: :term:`AGPL` v3.0 (`license <https://github.com/ckan/ckan/blob/release-v2.5.3/LICENSE.txt>`_)
   
  - `Tolomeo <http://egov.formez.it/content/tolomeo>`_ : :term:`GPL` v3
 

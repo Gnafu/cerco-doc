@@ -40,13 +40,22 @@ Autenticarsi su CKAN come utente ``harvest`` e andare alla pagina ``/harvest``.
 
 Per ogni nodo partner, creare una nuova sorgente dati e configurarla nel seguente modo:
 
-- Source of metadata: http://84.33.2.29 (inserire indirizzo IP o nome del nodo partner)
+- Source of metadata: es: ``http://84.33.2.29`` (inserire indirizzo IP o nome del nodo partner)
 - Source type: CKAN
-- Titolo: CERCO - Provincia di Prato (modificare a piacere)
+- Titolo: es: ``CERCO - Provincia di Prato`` (modificare a piacere)
 - Descrizione: (a piacere, anche vuoto va bene)
-- Configuration: ``{ "force_all": true, "default_tags":["provincia-prato"], "default_extras":{"nodo_origine_cerco":"Provincia di Prato","harvest_url":"{harvest_source_url}/dataset/{dataset_id}"}  }``
+- Configuration: è un dict JSON che ammette i seguenti campi:
    - ``force_all``: scarica tutti i dataset remoti, forzando la comparazione con l'insieme di dati correnti 
        ed eliminando quelli non più presenti sul nodo remoto
    - ``default_tags``: tag da aggiungere ai dataset importati, da modificare a piacere
    - ``nodo_origine_cerco``: Informazioni sul nodo sorgente da visualizzare nella lista dataset; da modificare a piacere
    - ``harvest_url``: URL del dataset sul nodo originale
+   - Questa è la configurazione tipo da inserire nella textarea (tag e nodo origine andranno modificati a seconda dell'URL harvestata)::
+   
+         { "force_all": true, 
+           "default_tags":[{"name": "provincia-prato"}], 
+           "default_extras": {
+             "nodo_origine_cerco": "Provincia di Prato",
+             "harvest_url": "{harvest_source_url}/dataset/{dataset_id}"}  
+         }
+   

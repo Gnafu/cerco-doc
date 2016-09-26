@@ -36,17 +36,17 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General substitutions.
-project = u'CERCO'
-manual = u'User Manual'
-copyright = u'2013 GeoSolutions'
+project = u'ODN'
+manual = u'Manual'
+copyright = u'2013-2016 GeoSolutions'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
 #
 # The short X.Y version.
-version = '0.9'
+version = '1.0'
 # The full version, including alpha/beta/rc tags.
-release = '0.8'
+release = '1.0.0 wip'
 
 language = 'en'
 
@@ -152,7 +152,7 @@ html_use_index = True
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'GeoNetworkUserManual'
+htmlhelp_basename = 'OpenDataNetworkSysadminManual'
 
 
 # Options for LaTeX output
@@ -167,8 +167,8 @@ latex_font_size = '11pt'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, document class [howto/manual]).
 latex_documents = [
-  ('index', 'CERCOUserManual.tex', u'CERCO User Manual',
-   u'CERCO', 'manual'),
+  ('index', 'ODNManual.tex', u'ODN SysAdmin Manual',
+   u'ODN', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
