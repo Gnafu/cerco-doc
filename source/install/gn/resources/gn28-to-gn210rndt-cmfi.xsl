@@ -124,7 +124,15 @@
                 </gmd:MD_Identifier>
             </gmd:identifier>
 
-            <xsl:apply-templates select="gmd:citedResponsibleParty" />
+            <xsl:choose>
+                <xsl:when test="gmd:citedResponsibleParty">
+                    <xsl:apply-templates select="gmd:citedResponsibleParty" />
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:call-template name="inferCitedResponsibleParty"/>
+                </xsl:otherwise>
+            </xsl:choose>
+
             <xsl:apply-templates select="gmd:presentationForm" />
             
             <gmd:series>
@@ -519,6 +527,38 @@
 
         </xsl:copy>        
     </xsl:template>
+
+    <!-- citedResponsibleParty -->
+
+    <xsl:template name="inferCitedResponsibleParty">
+        <gmd:citedResponsibleParty>
+
+            <xsl:choose>
+                <!--  se esiste, copia id distributor dall'identificationInfo -->
+
+                <xsl:when test="../../gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='custodian']">
+                   <xsl:message>== Copia citedResponsibleParty da custodian</xsl:message>
+                   <xsl:apply-templates select="../../gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='custodian']"/>
+                </xsl:when>
+                <xsl:when test="../../gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='distributor']">
+                   <xsl:message>== Copia citedResponsibleParty da distributor</xsl:message>
+                   <xsl:apply-templates select="../../gmd:pointOfContact/gmd:CI_ResponsibleParty[gmd:role/gmd:CI_RoleCode/@codeListValue='distributor']" mode="copy"/>
+                </xsl:when>
+                <xsl:when test="../../gmd:pointOfContact/gmd:CI_ResponsibleParty[1]">
+                   <xsl:message>== Copia citedResponsibleParty da pointOfContact[1]</xsl:message>
+                   <xsl:apply-templates select="../../gmd:pointOfContact/gmd:CI_ResponsibleParty[1]"/>
+                </xsl:when>
+                <xsl:when test="../../../../../gmd:contact/gmd:CI_ResponsibleParty">
+                   <xsl:message>== Copia citedResponsibleParty dal contact</xsl:message>
+                   <xsl:apply-templates select="../../../../../gmd:contact/gmd:CI_ResponsibleParty"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:message>==== ATTENZIONE A citedResponsibleParty</xsl:message>
+                </xsl:otherwise>
+            </xsl:choose>
+        </gmd:citedResponsibleParty>
+    </xsl:template>
+
 
     <!-- Fixa la gmd:date del thesaurus -->
         
