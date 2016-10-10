@@ -234,6 +234,10 @@ As  ``root``::
 DB init
 '''''''
 
+.. note::
+   In case you need to restore an existing DB, or you are migrating an older CKAN deploy,
+   please skip this section and follow the steps :ref:`install_ckan_db_migration` instead.     
+
 As user ``ckan``::
 
    . default/bin/activate
@@ -242,9 +246,41 @@ As user ``ckan``::
 .. note::
    The ``db init`` procedure needs solr to be running.
 
+.. _install_ckan_db_migration:
+
+DB migration
+''''''''''''
+
+In case you are restoring an existing DB, or you are migrating an older CKAN deploy, you don't have to init your DB from scratch
+and create initial users, since all the existing data will be restored into the new CKAN instance.
+
+As ``postgres`` user, restore the dumped DB data::
+
+   psql -f FULL_PATH_TO_DUMP_FILE ckan
+
+Edit the ``/etc/ckan/default/production.ini`` file and comment out the ``ckan.plugins`` line
+by putting a ``#`` comment symbol at the beginning::   
+   
+   # ckan.plugins = [...] 
+   
+As ``ckan`` user, activate the virtualenv and perform the migration::
+
+   . /usr/lib/ckan/default/bin/activate
+   paster --plugin=ckan db upgrade    --config=/etc/ckan/default/production.ini
+   
+Uncomment the ``ckan.plugins`` line in ``/etc/ckan/default/production.ini``.
+
+Reindex the dataset::
+
+   paster --plugin=ckan search-index rebuild   --config=/etc/ckan/default/production.ini
+
 
 CKAN users
 ''''''''''
+
+.. note::
+   In case you need to restore an existing DB, or you are migrating an older CKAN deploy,
+   a sysadmin should already be configured, so you may skip this section.     
 
 Add a user with sysadmin privileges using this command ::
 
@@ -257,6 +293,7 @@ Test  CKAN
 Run CKAN as user ``ckan``::
 
    (pyenv)$ paster serve /etc/ckan/default/production.ini &
+   
 
 ==========================
 Apache httpd configuration
