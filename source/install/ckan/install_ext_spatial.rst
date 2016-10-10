@@ -16,6 +16,10 @@ Add the spatial extension to the ``ckan`` DB::
    ckan=# GRANT ALL PRIVILEGES ON DATABASE ckan TO ckan;
    ckan=# GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ckan;
 
+You can check the installed PostGIS version by using::
+
+   SELECT postgis_full_version();
+
 
 Installing spatial libs
 -----------------------
@@ -33,9 +37,21 @@ As user ``ckan``::
    . default/bin/activate
    cd /usr/lib/ckan/default/src
    git clone https://github.com/ckan/ckanext-spatial.git
-   cd ckanext-spatial            
+   cd ckanext-spatial     
    pip install -e .
    pip install -r pip-requirements.txt
+
+
+If you need to display a **WMS base layer** in the extent map,
+check if the PR #163 (https://github.com/ckan/ckanext-spatial/pull/163) has been merged into official ckanext-spatial,
+otherwise use a forked version that already contains the required feature::
+
+   cd /usr/lib/ckan/default/src/ckanext-spatial
+   git remote add forked https://github.com/geosolutions-it/ckanext-spatial.git
+   git fetch forked
+   git checkout --track forked/162_wms_layers
+   pip install -e .
+
 
 Init spatial DB
 ---------------
@@ -56,6 +72,18 @@ Edit file ``/etc/ckan/default/production.ini`` and add the spatial related plugi
 You may also specify the default SRID::
 
    ckan.spatial.srid = 4326
+   
+Add the info to display a WMS base layer in the extent map::   
+   
+   ckanext.spatial.common_map.type = wms
+   ckanext.spatial.common_map.wms.url = http://pubblicazioni.provincia.fi.it/geoserver/sfondi/service=wms
+   ckanext.spatial.common_map.wms.layers = SfondoCercoLight
+   ckanext.spatial.common_map.wms.styles =
+   ckanext.spatial.common_map.wms.format = image/png
+   ckanext.spatial.common_map.wms.srs = 
+   ckanext.spatial.common_map.wms.version = 1.1.1
+   ckanext.spatial.common_map.wms.attribution =
+   
 
 Metadata validation
 '''''''''''''''''''
@@ -127,7 +155,7 @@ update the value of ``maxBooleanClauses`` to 16384.
 
 Restart Solr to make it read the config changes::
 
-   service solr restart
+   systemctl restart tomcat@solr
    
 If your CKAN instance already contained spatial datasets, you may want to reindex the catalog::
 
