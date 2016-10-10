@@ -45,11 +45,11 @@ The provided plugin is called ``tolomeo_view``.
 
 Edit the file ``/etc/ckan/default/production.ini`` and add the plugin::  
 
-   ckan.plugins = [...] tolomeo_view
+   ckan.plugins = [...] tolomeo_view tolomeo_preset_view
    
 Also add this view as one of the default views that will be added to new WMS resources::
 
-   ckan.views.default_views = ... tolomeo_view
+   ckan.views.default_views = ... tolomeo_view tolomeo_preset_view
    
 Once saved the ``.ini`` file restart CKAN. 
 
