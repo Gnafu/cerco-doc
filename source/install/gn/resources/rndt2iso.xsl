@@ -23,6 +23,10 @@
            <xsl:apply-templates select="@*|node()" mode="copy"/>         
        </xsl:copy>
     </xsl:template>
+    
+    <!--  skip request provided by GN context (in case of a POST) -->
+    <xsl:template match="csw:request" priority="5">
+    </xsl:template>    
    
     <!-- copy elements in copy mode -->
     <xsl:template match="@*|node()" mode="copy">

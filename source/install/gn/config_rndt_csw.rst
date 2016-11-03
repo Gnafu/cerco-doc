@@ -61,7 +61,7 @@ Nel file ``/var/lib/tomcat/geonetwork/webapps/geonetwork/WEB-INF/config-csw-serv
 possiamo creare nuovi servizi CSW, con la possibilità di:
 
 - definire filtri che operino solo in un sottoinsieme dei metadati;
-- definire un file XSL per trasformare il metadato unin uscita.
+- definire un file XSL per trasformare il metadato in uscita.
 
 
 Per aggiungere un servizio CSW che ritorni i soli metadati della Città Metropolitana di Firenze, editare il file :: 
@@ -74,6 +74,7 @@ ed aggiungere un servizio in questo modo::
       <class name=".services.main.CswDiscoveryDispatcher" >
           <param name="filter" value="+ipa:cmfi"/>
       </class>
+      <output sheet="rndt_fix.xsl" />
    </service>
   
 Il **service name** (in questo caso ``csw-cmfi-rndt``) è la parte finale della URL dell'entrypoint CSW, ossia   
@@ -84,33 +85,53 @@ In questo modo questo servizio ritornerà esclusivamente i metadati con il ``COD
 nella sezione precedente. 
 Ulteriore esempio: nel caso si fosse dovuto filtrare i metadati del Comune di Firenze, il filtro sarebbe stato ``"+ipa:c_d612"``.
 
- 
-Configurazione output ISO
-_________________________
-
 La configurazione manuale dei servizi CSW, come detto sopra, permette anche di definire un XSL che andrà a modificare 
 il metadato presentato all'esterno.
-
-Questo ci permette di creare endpoint CSW diversi che presentano il metadato in formati diversi. Il plugin RNDT formatta il metadato seguendo
-le specifiche richieste dal Repertorio Nazionale. Dato che esistono peer esterni che richiedono di rimuovere i valori di alcuni campi caratteristici
-di RNDT (es.: ``parentIdentifier``), potremo creare un endpoint CSW che presenti i metadati in un formato più orientato alla semantica ISO.
 
 L'output di un servizio GeoNetwork può essere postprocessato da un foglio XSL aggiungendo l'elemento::
  
    <output sheet="nomefile.xsl" />
-   
+
+Il file ``rndt_fix.xsl`` effettua delle modifiche all'output RNDT, fixando degli elementi che il Repertorio non riesce a parsare, 
+(``gmx:MimeType``) ma che non possiamo eliminare dall'output del plugin, pena la perdita di alcune informazioni in altri formati.
+
+Notare che questo file non è relativo all'Ente di PA che si sta configurando, ma deve essere usato lo stesso file 
+anche per altri eventuali endpoint CSW RNDT di altre PA.    
+
+ 
+Configurazione output ISO
+_________________________
+
+La trasformazione tramite XSL dei servizi CSW, ci permette di creare endpoint CSW diversi che presentano il metadato in formati diversi. 
+Il plugin RNDT formatta il metadato seguendo le specifiche richieste dal Repertorio Nazionale. 
+Dato che esistono peer esterni che richiedono di rimuovere i valori di alcuni campi caratteristici
+di RNDT (es.: ``parentIdentifier``), potremo creare un endpoint CSW che presenti i metadati in un formato 
+più orientato alla semantica ISO.
+
+  
 Per cui, per configurare un servizio CSW che gestisca i metadati della Città Metropolitana di Firenze e li fornisca in formato "ISO", 
 dovremo aggiungere un ulteriore servizio nel file ``config-csw-servers.xml``::
 
-   <service name="csw-cmfi">
+   <service name="csw-cmfi-iso">
       <class name=".services.main.CswDiscoveryDispatcher" >
-          <param name="filter" value="+ipa:cmfi"/>
+          <param name="filter" value="+ipa:cmfi +RNDTobsoleto:false"/>
       </class>
       <output sheet="rndt2iso.xsl" />
    </service>
 
+Il filtro ``+RNDTobsoleto:false`` esclude dall'output di questo endpoint tutti i metadati che hanno una keyword ``obsoleto``.
+Questo significa che, aggiungendo tale keyword ai metadati che hanno nel catalogo una versione aggiornata, non
+verranno considerato dal servizio CSW ISO. 
+
+Serve inoltre modificare il file::  
+
+   vim /var/lib/tomcat/geonetwork/webapps/geonetwork/WEB-INF/data/config/schema_plugins/iso19139.rndt/present/csw/iso-full.xsl
+   
+e commentare l'ultimo template, in modo che dall'output ISO l'elemento MimeType sia restituito correttamente.
+    
+
 Avremo così i due diversi servizi:
 
-- ``http://SERVER/geonetwork/srv/ita/csw-cmfi``      per l'output ISO
+- ``http://SERVER/geonetwork/srv/ita/csw-cmfi-iso``  per l'output ISO
 - ``http://SERVER/geonetwork/srv/ita/csw-cmfi-rndt`` per l'output RNDT
 

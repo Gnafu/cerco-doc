@@ -38,6 +38,15 @@ Copiare il :download:`file XSL <resources/rndt2iso.xsl>` nella directory
 
 Questo è il file che permette di avere servizi CSW che presentino metadati RNDT in formato ISO (vedi :ref:`install_gn_csw_services`).
 
+Copiare il :download:`file XSL <resources/rndt_fix.xsl>` nella directory 
+``/var/lib/tomcat/geonetwork/webapps/geonetwork/xsl/rndt_fix.xsl``.
+
+Questo file modifica alcuni elementi dal metadato (p.e. trasforma l'elemento ``gmx:MimeFileType`` in
+``gco:CharacterString``, dato che l'harvester RNDT non pare supportare il primo).
+Questa modifica non può essere fatta dall'XSL di esportazione CSW standard per RNDT, in quanto eliminerebbe 
+alcune informazioni utili sull'endpoint ISO (p.e. il tipo di risorsa, utilizzato da CKAN).
+
+
 XSL di importazione
 ___________________
 
