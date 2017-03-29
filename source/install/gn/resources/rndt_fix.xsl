@@ -39,4 +39,8 @@
        <gco:CharacterString><xsl:value-of select="text()"/></gco:CharacterString>
     </xsl:template>
 
+    <xsl:template match="gmx:Anchor" mode="copy">
+       <gco:CharacterString><xsl:value-of select="text()"/></gco:CharacterString>
+    </xsl:template>
+
 </xsl:stylesheet>
