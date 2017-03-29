@@ -135,3 +135,22 @@ Avremo così i due diversi servizi:
 - ``http://SERVER/geonetwork/srv/ita/csw-cmfi-iso``  per l'output ISO
 - ``http://SERVER/geonetwork/srv/ita/csw-cmfi-rndt`` per l'output RNDT
 
+
+Output ISO non filtrato
+,,,,,,,,,,,,,,,,,,,,,,,
+
+Se si vuole rendere disponibile tutti i dataset del catalogo nel formato ISO, senza filtrare per PA, si dovrà creare un servizio
+CSW in questo modo::
+
+   <service name="csw-iso">
+      <class name=".services.main.CswDiscoveryDispatcher" >
+          <param name="filter" value="+RNDTobsoleto:false"/>
+      </class>
+      <output sheet="rndt2iso.xsl" />
+   </service>
+
+ In questo caso si crea il servizio ``http://SERVER/geonetwork/srv/ita/csw-iso`` in modo tale che:
+
+ - NON si filtra per iPA
+ - si filtrano via i metadati obsoleti
+ - si richiede la trasformazione tramite ``rndt2iso.xsl``

@@ -67,6 +67,8 @@ Questo file è usato in fase di importazione (vedi :ref:`gn_migration_import`) p
 
 Per importare metadati afferenti a diverse PA servirà creare file *xsl* appositi; far riferimento alla sezione :ref:`gn_migration_import_xsl`.
 
+.. _install_gn_rndt_config_pa:
+
 Configurazione Enti PA
 ----------------------
 
