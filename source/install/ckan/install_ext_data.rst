@@ -109,6 +109,7 @@ As ``ckan``, create a brand new virtualenv, and install the datapusher app in it
    git clone -b stable https://github.com/ckan/datapusher.git
    cd datapusher/
    . ../../bin/activate
+   pip install setuptools==36.1 
    pip install -r requirements.txt
    python setup.py develop
 

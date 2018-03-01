@@ -23,6 +23,7 @@ The only option for installing CKAN on a CentOS platform is installing it from s
    install_ext_data.rst
    install_ext_harvester.rst   
    install_ext_spatial.rst
+   install_ext_views.rst
    install_ext_gnharvester.rst
    install_ext_odn
    install_ext_tolomeo.rst

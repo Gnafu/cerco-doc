@@ -42,17 +42,6 @@ As user ``ckan``::
    pip install -r pip-requirements.txt
 
 
-If you need to display a **WMS base layer** in the extent map,
-check if the PR #163 (https://github.com/ckan/ckanext-spatial/pull/163) has been merged into official ckanext-spatial,
-otherwise use a forked version that already contains the required feature::
-
-   cd /usr/lib/ckan/default/src/ckanext-spatial
-   git remote add forked https://github.com/geosolutions-it/ckanext-spatial.git
-   git fetch forked
-   git checkout --track forked/162_wms_layers
-   pip install -e .
-
-
 Init spatial DB
 ---------------
 
@@ -163,4 +152,27 @@ If your CKAN instance already contained spatial datasets, you may want to reinde
    paster --plugin=ckan search-index rebuild_fast --config=/etc/ckan/default/production.ini
       
 
+.. _install_geo_view:
 
+Installing geo view
+-------------------
+
+As user ``ckan``::
+
+   . default/bin/activate
+   pip install ckanext-geoview
+
+Edit file ``/etc/ckan/default/production.ini`` and add the plugins::
+
+   ckan.plugins = [...] resource_proxy geo_view geojson_view wmts_view
+
+Also make CKAN create default views for the geo resources::
+
+   ckan.views.default_views = [...] geo_view geojson_view wmts_view
+
+Then set up the formats that should be handled by the geoview plugin::
+
+   ckanext.geoview.ol_viewer.formats = wms kml wfs gml arcgis_rest
+
+
+Refer to the official geoview page for further details at https://github.com/ckan/ckanext-geoview

@@ -74,9 +74,9 @@ Let's download and install `Tomcat` first::
 
     mkdir -p /root/download
     cd /root/download
-    wget http://it.apache.contactlab.it/tomcat/tomcat-7/v7.0.69/bin/apache-tomcat-7.0.69.tar.gz
-    tar xzvf apache-tomcat-7.0.69.tar.gz -C /opt/    
-    ln -s /opt/apache-tomcat-7.0.69 /opt/tomcat
+    wget http://mirror.nohup.it/apache/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz
+    tar xzvf apache-tomcat-7.0.82.tar.gz -C /opt/    
+    ln -s /opt/apache-tomcat-7.0.82 /opt/tomcat
 
 
 .. _create_tomcat_template:

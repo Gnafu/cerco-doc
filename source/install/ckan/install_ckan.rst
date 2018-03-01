@@ -1,7 +1,7 @@
 .. _install_ckan:
 
 ###################
-Installing CKAN 2.5
+Installing CKAN 2.6
 ###################
 
 ============
@@ -109,12 +109,20 @@ Activate the vitualenv::
    
 Download and install CKAN::
    
-   pip install -e 'git+https://github.com/ckan/ckan.git@release-v2.5.3#egg=ckan'
+   pip install -e 'git+https://github.com/ckan/ckan.git@release-v2.6-latest#egg=ckan'
+
    
 Enable the path for some postgres utilities::   
    
-   export PATH=$PATH:/usr/pgsql-9.4/bin/
+   export PATH=$PATH:/usr/pgsql-9.6/bin/
    
+
+There are some missing requirements in CKAN 2.6, so you have to run::
+
+   pip install setuptools==36.1 
+   pip install pytz
+
+
 Download and install the necessary Python modules to run CKAN into the isolated Python environment::
  
    pip install -r default/src/ckan/requirements.txt
@@ -202,7 +210,11 @@ Edit the file ``/etc/ckan/default/production.ini``
     ckan.site_id:
     ckan.site_title:
     ckan.site_url:
+
+- Filesystem data location ::
     
+    ckan.storage_path = /var/lib/ckan/storage
+
 - Mail notifications (es.) ::
 
     email_to = info@the.project.org
@@ -229,6 +241,9 @@ As  ``root``::
   
    mkdir /var/log/ckan
    chown ckan: /var/log/ckan
+
+   mkdir -p /var/lib/ckan/storage
+   chown ckan: -R /var/lib/ckan
 
    
 DB init
